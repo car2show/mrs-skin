@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mrs.Skin — Premium Domain</title>
+    <meta name="description" content="Premium skincare and beauty domain available for acquisition.">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Mrs.Skin">
+    <meta property="og:description" content="Premium skincare and beauty domain available for acquisition.">
+    <meta property="og:image" content="og-image.jpg">
+    <meta property="og:type" content="website">
+
+    <!-- Favicons -->
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="apple-mobile-web-app-title" content="Mrs.Skin">
+    <meta name="theme-color" content="#d8d2cb">
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: #d8d2cb;
+            color: #1a1a1a;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 520px;
+            text-align: center;
+        }
+
+        .logo-img {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            display: block;
+            margin: 0 auto 40px;
+        }
+
+        .description {
+            margin: 0 0 40px;
+            color: #4f4f4f;
+            font-size: 18px;
+            line-height: 1.65;
+            letter-spacing: 0.2px;
+        }
+
+        form { display: flex; flex-direction: column; gap: 18px; }
+
+        input, textarea {
+            width: 100%;
+            padding: 18px 22px;
+            border-radius: 22px;
+            border: 1px solid rgba(0,0,0,0.08);
+            background: rgba(255,255,255,0.42);
+            color: #1a1a1a;
+            font-size: 16px;
+            font-family: inherit;
+            transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+        }
+
+        textarea { min-height: 160px; resize: vertical; }
+
+        input::placeholder, textarea::placeholder { color: #7a7a7a; }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #111;
+            background: rgba(255,255,255,0.68);
+        }
+
+        button {
+            margin-top: 4px;
+            padding: 20px;
+            border: none;
+            border-radius: 22px;
+            background: #111;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            font-family: inherit;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+
+        .success {
+            display: none;
+            margin-top: 15px;
+            color: #111;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 18px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.42);
+            border: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .note {
+            margin-top: 28px;
+            color: #707070;
+            font-size: 13px;
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 20px; }
+            .logo-img { max-width: 280px; margin-bottom: 34px; }
+            .description { margin-bottom: 34px; font-size: 16px; }
+            input, textarea, button { font-size: 16px; }
+            textarea { min-height: 140px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="logo.png" alt="Mrs. Skin" class="logo-img" width="320" loading="eager" decoding="async">
+        <p class="description">
+            Premium skincare and beauty domain.<br>
+            Available for acquisition.
+        </p>
+
+        <form onsubmit="handleSubmit(event)">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" placeholder="Your Offer or Message" required></textarea>
+            <button type="submit">Make an Offer</button>
+        </form>
+
+        <div class="success" id="successMsg">✓ Your inquiry has been sent successfully</div>
+        <div class="note">Open to serious offers.</div>
+    </div>
+
+<script>
+    function handleSubmit(e) {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button');
+
+        btn.disabled = true;
+        btn.innerText = "Sending...";
+
+        fetch("https://formspree.io/f/mojbpoza", {
+            method: "POST",
+            body: new FormData(form),
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then((response) => {
+            if (response.ok) {
+                form.style.display = "none";
+                document.getElementById("successMsg").style.display = "block";
+            } else {
+                throw new Error('Network response error');
+            }
+        })
+        .catch(() => {
+            alert("Error sending. Try again.");
+            btn.disabled = false;
+            btn.innerText = "Make an Offer";
+        });
+    }
+</script>
+</body>
+</html>
